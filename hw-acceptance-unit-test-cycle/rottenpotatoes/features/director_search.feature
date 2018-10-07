@@ -32,3 +32,25 @@ Scenario: can't find similar movies if we don't know director (sad path)
   When  I follow "Find Movies With Same Director"
   Then  I should be on the home page
   And   I should see "'Alien' has no director info"
+  
+Scenario: edit the rating of an existing movie
+  Given I am on the details page for "Blade Runner"
+  When  I follow "Edit"
+  And   I select "G" from "Rating"
+  And   I press "Update Movie Info"
+  Then  the rating of "Blade Runner" should be "G"
+  
+Scenario: delete a movie
+  Given I am on the details page for "THX-1138"
+  And   I press "Delete"
+  Then  I should see "Movie 'THX-1138' deleted"
+  
+Scenario: add a movie
+  Given I am on the home page
+  When  I follow "Add new movie"
+  And   I fill in "Title" with "Kabali"
+  And   I select "PG-13" from "Rating"
+  And   I fill in "Director" with "Ranjith"
+  And   I choose "2016-07-16" in "Released On" as release date
+  And   I press "Save Changes"
+  Then  I should see "Kabali was successfully created."
